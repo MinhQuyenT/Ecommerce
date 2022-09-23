@@ -1,0 +1,72 @@
+<div class="container-fluid">
+  <app-page-title [title]="'MenuItem.User.Children.AdminUser' | translate"></app-page-title>
+  <div class="card">
+    <div class="card-body">
+      <div class="row mb-2">
+        <div class="col-sm-4">
+          <div class="search-box me-2 mb-2 d-inline-block">
+            <div class="position-relative">
+              <input type="text" placeholder="Search..." class="form-control ng-pristine ng-valid ng-touched">
+              <i class="bx bx-search-alt search-icon"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-8">
+          <div class="text-sm-end">
+            <button type="button" class="btn btn-success btn-rounded mb-2 mr-2" (click)="addNew()">
+              <i [class]="iconButton.ADD"></i>
+              {{'System.Action.AddNew' | translate}}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table align-middle table-nowrap">
+          <thead class="table-light">
+            <tr>
+              <th>#</th>
+              <th>{{'User.AdminUser.UserAccount' | translate}}</th>
+              <th>{{'User.AdminUser.UserName' | translate}}</th>
+              <th>{{'User.AdminUser.Email' | translate}}</th>
+              <th>{{'User.AdminUser.ValidFrom' | translate}}</th>
+              <th>{{'User.AdminUser.ValidTo' | translate}}</th>
+              <th>{{'User.AdminUser.LastLogin' | translate}}</th>
+              <th>{{'User.AdminUser.Action' | translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of users; let i = index;">
+              <td>{{(pagination.pageNumber - 1) * pagination.pageSize + i + 1}}</td>
+              <td>{{item.userAccount}}</td>
+              <td>{{item.userName}}</td>
+              <td>{{item.email}}</td>
+              <td>{{item.validFrom | date: 'yyyy/MM/dd'}}</td>
+              <td>{{item.validTo | date: 'yyyy/MM/dd'}}</td>
+              <td>{{item.lastLogin | date: 'yyyy/MM/dd HH:mm:ss'}}</td>
+              <td style="width: 1rem;">
+                <button class="btn btn-sm btn-warning btn-rounded me-1" (click)="edit(item.userAccount)">
+                  <i [class]="iconButton.EDIT"></i>
+                  {{'System.Action.Edit' | translate}}
+                </button>
+                <button class="btn btn-sm btn-secondary btn-rounded me-1" (click)="authorize(item.userAccount)">
+                  <i [class]="iconButton.AUTHORIZE"></i>
+                  {{'System.Action.Authorize' | translate}}
+                </button>
+                <button class="btn btn-sm btn-danger btn-rounded" (click)="delete(item.userAccount)">
+                  <i [class]="iconButton.DELETE"></i>
+                  {{'System.Action.Delete' | translate}}
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <ngb-pagination *ngIf="pagination.totalPage > 1" [(page)]="pagination.pageNumber"
+        [pageSize]="pagination.pageSize" [collectionSize]="pagination.totalCount" [boundaryLinks]="true"
+        [maxSize]="5" (pageChange)="pageChanged($event)"
+        class="pagination pagination-rounded justify-content-start mb-2" aria-label="Default pagination">
+      </ngb-pagination>
+    </div>
+  </div>
+</div>

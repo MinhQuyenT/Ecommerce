@@ -1,0 +1,79 @@
+<div class="container-fluid">
+  <div class="text-nowrap">
+    <app-page-title title="{{'Property.Size.Size' | translate}}" class="d-inline-block"></app-page-title>
+    <button [routerLink]="['/properties/size']" type="button" class="btn btn-primary float-end"> <i
+        [class]="iconButton.BACK"></i>
+      {{'System.Action.Back' | translate}}</button>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">{{'Property.Size.AddSize' | translate}}</h4>
+          <form [formGroup]="formData" id="formData">
+            <div class="mb-3 mt-4">
+              <label class="form-label">{{'Property.Size.Size_Name' | translate}}</label><span class="text-danger"> *</span>
+              <input type="text" class="form-control" formControlName="name">
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label class="form-label">{{'Property.Size.Bust' | translate}}</label><span class="text-danger"> *</span>
+                <div class="input-group mb-3">
+                  <input type="number" class="form-control text-center" formControlName="bust">
+                  <span class="input-group-text">-</span>
+                  <input type="number" class="form-control text-center" formControlName="bust2">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">{{'Property.Size.Waist' | translate}}</label><span class="text-danger"> *</span>
+                <div class="input-group mb-3">
+                  <input type="number" class="form-control text-center" formControlName="waist">
+                  <span class="input-group-text">-</span>
+                  <input type="number" class="form-control text-center" formControlName="waist2">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">{{'Property.Size.Hip' | translate}}</label><span class="text-danger"> *</span>
+                <div class="input-group mb-3">
+                  <input type="number" class="form-control text-center" formControlName="hip">
+                  <span class="input-group-text">-</span>
+                  <input type="number" class="form-control text-center" formControlName="hip2">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label class="form-label">{{'Property.Size.Weight' | translate}}</label><span class="text-danger"> *</span>
+                <div class="input-group mb-3">
+                  <input type="number" class="form-control text-center" formControlName="weight">
+                  <span class="input-group-text">-</span>
+                  <input type="number" class="form-control text-center" formControlName="weight2">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">{{'Property.Size.Height' | translate}}</label><span class="text-danger"> *</span>
+                <div class="input-group mb-3">
+                  <input type="number" class="form-control text-center" formControlName="height">
+                  <span class="input-group-text">-</span>
+                  <input type="number" class="form-control text-center" formControlName="height2">
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">{{'Property.Size.Description' | translate}}</label>
+              <textarea class="form-control" formControlName="description" name="description" placeholder="Mô tả"
+                required rows="5"></textarea>
+            </div>
+            <div class="d-flex flex-wrap gap-2 float-end">
+              <button type="button" class="btn btn-danger float-end" (click)="reset()">
+                <i class="{{iconButton.RESET}}"></i> {{'System.Action.Reset' | translate}}</button>
+              <button type="button" class="btn btn-primary" (click)="saveData()" form="formData"
+                [disabled]="!formData.valid">
+                <i class="{{iconButton.SAVE}}"></i> {{'System.Action.Save' | translate}}</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="container-fluid">
+  <div class="text-nowrap">
+    <app-page-title [title]="'MenuItem.User.Children.AdminUser' | translate" class="d-inline-block"></app-page-title>
+    <button type="button" class="btn btn-primary btn-sm float-end" (click)="back()">
+      <i [class]="iconButton.BACK"></i> {{'System.Action.Back' | translate}}
+    </button>
+  </div>
+
+  <div class="card" style="height: 100%;">
+    <div class="card-body">
+      <h4 class="card-title">{{'System.Action.Authorize' | translate}}</h4>
+      <form #form="ngForm" (submit)="save()">
+        <ngx-treeview [config]="config" [items]="items"></ngx-treeview>
+        <div class="d-flex flex-wrap gap-2 mt-2">
+          <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+            <i [class]="iconButton.SAVE"></i>
+            {{'System.Action.Save' | translate}}
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="reset()">
+            <i [class]="iconButton.RESET"></i>
+            {{'System.Action.Reset' | translate}}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="pageWrapper">
+    <!--Promotion Bar-->
+    <div class="notification-bar mobilehide">
+        <a href="#" class="notification-bar__message">20% off your very first purchase, use promo code: belle
+            fashion</a>
+        <span class="close-announcement">×</span>
+    </div>
+    <!--End Promotion Bar-->
+    <!--Search Form Drawer-->
+    <div class="search">
+        <div class="search__form">
+            <form class="search-bar__form" action="#">
+                <button class="go-btn search__button" type="submit"><i class="icon anm anm-search-l"></i></button>
+                <input class="search__input" type="search" name="q" value="" placeholder="Search entire store..."
+                    aria-label="Search" autocomplete="off">
+            </form>
+            <button type="button" class="search-trigger close-btn"><i class="anm anm-times-l"></i></button>
+        </div>
+    </div>
+    <!--End Search Form Drawer-->
+    <!--Top Header-->
+    <app-top-header></app-top-header>
+    <!--End Top Header-->
+    <!--Header-->
+    <app-header></app-header>
+    <!--End Header-->
+  
+    <!--Mobile Menu-->
+    <app-mobie-menu></app-mobie-menu>
+    <!--End Mobile Menu-->
+  
+    <!--Body Content-->
+    <div id="page-content">
+        <router-outlet></router-outlet>
+    </div>
+    <!--End Body Content-->
+  
+    <!--Footer-->
+    <app-footer></app-footer>
+    <!--End Footer-->
+    <!--Scoll Top-->
+    <span id="site-scroll"><i class="icon anm anm-angle-up-r"></i></span>
+    <!--End Scoll Top-->
+  
+    <!--Quick View popup-->
+    <app-quick-view></app-quick-view>
+    <!--End Quick View popup-->
+  
+    <!-- Newsletter Popup -->
+    <app-newsletter></app-newsletter>
+    <!-- End Newsletter Popup -->
+  </div>

@@ -1,0 +1,68 @@
+<div class="container-fluid">
+  <app-page-title title="{{'Manage_Category.TitleMain' | translate}}"></app-page-title>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-2">
+            <div class="col-sm-4">
+              <div class="search-box me-2 mb-2 d-inline-block">
+                <div class="position-relative">
+                  <input type="text" (keyup.enter)="search()" class="form-control" [(ngModel)]="paramSearch" placeholder="{{'System.Action.Search' | translate}}...">
+                  <i class="bx bx-search-alt search-icon"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-8">
+              <div class="text-sm-end">
+                <button type="button" [routerLink]="['/category/add']"  class="btn btn-success btn-rounded mb-2 me-2"><i class="mdi mdi-plus mr-1"></i>
+                  {{'System.Action.AddNew' | translate}}</button>
+              </div>
+            </div><!-- end col-->
+          </div>
+
+          <div class="table-responsive mt-4">
+            <table class="table mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th>#</th>
+                  <th>Code</th>
+                  <th>{{'Manage_Category.Name' | translate}}</th>
+                  <th>{{'Manage_Category.Title' | translate}}</th>
+                  <th>{{'Manage_Category.Picture' | translate}}</th>
+                  <th>{{'Manage_Category.Description' | translate}}</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let category of categorys; let i = index">
+                  <th scope="row">{{ (pagination.pageNumber - 1) * pagination.pageSize + i + 1}}</th>
+                  <td>{{category.code}}</td>
+                  <td>{{category['name_' + lang]}}</td>
+                  <td>{{category.title}}</td>
+                  <td>
+                    <img height="150" width="100"  [src]="baseUrl + category.avartar" alt=""> 
+                  </td>
+                  <td>{{category.description}}</td>
+                  <td style="width: 1rem;" class="text-nowrap">
+                    <button class="btn btn-sm btn-warning btn-rounded me-1" (click)="editCategory(category)">
+                      <i [class]="iconButton.EDIT"></i>
+                      {{'System.Action.Edit' | translate}}
+                    </button>
+                    <button class="btn btn-sm btn-danger btn-rounded">
+                      <i [class]="iconButton.DELETE"></i>
+                      {{'System.Action.Delete' | translate}}
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <ngb-pagination [(page)]="pagination.pageNumber" [pageSize]="pagination.pageSize"
+          [collectionSize]="pagination.totalCount" (pageChange)="changePaged($event)"
+          class="pagination pagination-rounded mb-2">
+        </ngb-pagination>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,62 @@
+<div class="container-fluid">
+  <div class="text-nowrap">
+    <app-page-title title="{{'Manage_Category.TitleAdd' | translate}}" class="d-inline-block"></app-page-title>
+    <button [routerLink]="['/category']" type="button" class="btn btn-primary float-end"> <i
+        [class]="iconButton.BACK"></i> {{'System.Action.Back' | translate}}</button>
+  </div>
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">{{'Manage_Category.Info_Category' | translate}}</h4>
+          <form action="" #addForm="ngForm">
+            <div class="mb-3 mt-4">
+              <label class="form-label">{{'Manage_Category.Name' | translate}}/VI</label>
+              <input type="text" [(ngModel)]="category.name_vi" name="name_vi" class="form-control" required
+                placeholder="Tên Tiếng việt" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">{{'Manage_Category.Name' | translate}}/EN</label>
+              <input type="text" [(ngModel)]="category.name_en" name="name_en" class="form-control" required
+                placeholder="Tên Tiếng anh" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">{{'Manage_Category.Title' | translate}}</label>
+              <input type="text" [(ngModel)]="category.title" name="title" class="form-control" placeholder="{{'Manage_Category.Title' | translate}}" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">{{'Manage_Category.Description' | translate}}</label>
+              <textarea class="form-control" [(ngModel)]="category.description" name="description" placeholder="{{'Manage_Category.Description' | translate}}"
+                required rows="5"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="formFile" class="form-label">{{'Manage_Category.Picture' | translate}}</label>
+              <input class="form-control" (change)="chooseAvatar($event)" type="file" id="formFile">
+            </div>
+            <div class="d-flex flex-wrap gap-2">
+              <button type="submit" (click)="save()" class="btn btn-primary waves-effect waves-light"
+                [disabled]="!addForm.valid || (category.avartar == '')">
+                <i [class]="iconButton.SAVE"></i>
+                {{'System.Action.Save' | translate}}
+              </button>
+              <button (click)="clear()" type="reset" class="btn btn-secondary waves-effect">
+                <i [class]="iconButton.CLEAR"></i>
+                {{'System.Action.Clear' | translate}}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6" *ngIf="category.avartar !== ''">
+      <div class="card">
+        <div class="card-body">
+          <!-- <h4 class="card-title">Hình ảnh</h4> -->
+          <div class="" >
+            <img [src]="category.avartar" class="img-fluid" alt="Responsive image">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

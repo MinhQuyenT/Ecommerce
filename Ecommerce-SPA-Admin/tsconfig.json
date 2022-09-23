@@ -1,0 +1,68 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "module": "es2020",
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2015",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "paths": {
+      "@constants/*": [
+        "src/app/_core/constants/*"
+      ],
+      "@directives/*": [
+        "src/app/_core/directives/*"
+      ],
+      "@guards/*": [
+        "src/app/_core/guards/*"
+      ],
+      "@helpers/*": [
+        "src/app/_core/helpers/*"
+      ],
+      "@models/*": [
+        "src/app/_core/models/*"
+      ],
+      "@params/*": [
+        "src/app/_core/params/*"
+      ],
+      "@pipes/*": [
+        "src/app/_core/pipes/*"
+      ],
+      "@queries/*": [
+        "src/app/_core/queries/*"
+      ],
+      "@services/*": [
+        "src/app/_core/services/*"
+      ],
+      "@stores/*": [
+        "src/app/_core/stores/*"
+      ],
+      "@utilities/*": [
+        "src/app/_core/utilities/*"
+      ],
+      "@resolvers/*": [
+        "src/app/_core/resolvers/*"
+      ],
+      "@environments/*": [
+        "src/environments/*"
+      ]
+    }
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true,
+  }
+}

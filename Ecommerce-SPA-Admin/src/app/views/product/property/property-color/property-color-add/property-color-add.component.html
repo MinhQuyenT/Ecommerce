@@ -1,0 +1,37 @@
+<div class="card">
+  <div class="modal-header ">
+    <h4 class="modal-title pull-left">{{'System.Action.AddNew' | translate}}</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="onModalClose()" >
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="outer">
+      <form [formGroup]="formData" id="formData">
+        <div class="mb-3">
+          <label>{{'Property.Color.Name_en' | translate}}</label><span class="text-danger"> *</span>
+          <input type="text" class="form-control" formControlName="name_en" >
+        </div>
+        <div class="mb-3">
+          <label>{{'Property.Color.Name_vi' | translate}}</label><span class="text-danger"> *</span>
+          <input type="text" class="form-control" formControlName="name_vi" >
+        </div>
+        <div class="mb-3">
+          <label>{{'Property.Color.Code' | translate}}</label><span class="text-danger"> *</span>
+          <input class="form-control form-control-color mw-100" type="color" formControlName="code"
+            id="example-color-input">
+        </div>
+        <div class="mb-3">
+          <label>{{'Property.Color.Description' | translate}}</label>
+          <textarea formControlName="description" class="form-control" rows="3"></textarea>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger float-end" (click)="reset()">
+      <i class="{{iconButton.RESET}}"></i> {{'System.Action.Reset' | translate}}</button>
+    <button type="button" class="btn btn-primary" (click)="saveData()" form="formData" [disabled]="!formData.valid">
+      <i class="{{iconButton.SAVE}}"></i> {{'System.Action.Save' | translate}}</button>
+  </div>
+</div>
