@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { InitJSUtility } from 'src/app/_core/utilities/init-js-utility';
 
 @Component({
   selector: 'app-footer',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private initJsUtility: InitJSUtility
+  ) { }
 
   ngOnInit(): void {
+    this.initJsUtility.footerLinkMobie();
   }
 
 }

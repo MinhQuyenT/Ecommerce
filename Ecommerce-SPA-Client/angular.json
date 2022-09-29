@@ -1,6 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
+    "analytics": "00dbbc37-2db6-48df-b180-5720f87287f7",
     "defaultCollection": "@datorama/akita"
   },
   "version": 1,
@@ -58,7 +59,21 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/vendor/jquery-3.3.1.min.js",
+              "src/assets/js/vendor/modernizr-3.6.0.min.js",
+              "src/assets/js/vendor/jquery.cookie.js",
+              "src/assets/js/vendor/wow.min.js",
+              "src/assets/js/vendor/instagram-feed.js",
+              "src/assets/js/vendor/masonry.js",
+              "src/assets/js/vendor/photoswipe-ui-default.min.js",
+              "src/assets/js/vendor/photoswipe.min.js",
+              "src/assets/js/vendor/wow.min.js",
+              "src/assets/js/bootstrap.min.js",
+              "src/assets/js/plugins.js",
+              "src/assets/js/popper.min.js",
+              "src/assets/js/lazysizes.js"
+            ]
           },
           "configurations": {
             "production": {

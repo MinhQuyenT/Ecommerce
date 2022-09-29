@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { InitJSUtility } from 'src/app/_core/utilities/init-js-utility';
 
 @Component({
   selector: 'app-shop-sidebar',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShopSidebarComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private initJsUtility: InitJSUtility
+  ) { }
 
   ngOnInit(): void {
+    this.initJsUtility.togglefilterWidget();
+    this.initJsUtility.categorySlide();
+    this.initJsUtility.priceRange();
+    this.initJsUtility.colorSwacthes();
   }
 
 }

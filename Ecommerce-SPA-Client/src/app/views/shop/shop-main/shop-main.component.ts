@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { InitJSUtility } from 'src/app/_core/utilities/init-js-utility';
 
 @Component({
   selector: 'app-shop-main',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShopMainComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private initJsUtility: InitJSUtility
+  ) { }
 
   ngOnInit(): void {
   }

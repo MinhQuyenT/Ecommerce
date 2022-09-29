@@ -1,3 +1,4 @@
+import { ShopDetailComponent } from './shop-detail/shop-detail.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -11,7 +12,8 @@ import { ShopListviewComponent } from './shop-listview/shop-listview.component';
   declarations: [
     ShopMainComponent,
     ShopSidebarComponent,
-    ShopListviewComponent
+    ShopListviewComponent,
+    ShopDetailComponent
   ],
   imports: [
     CommonModule,
