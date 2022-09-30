@@ -28,6 +28,7 @@ namespace Ecommerce_API._Repositories
             Subscribe = new SubscribeRepository(_dbContext);
             WishList = new WishListRepository(_dbContext);
             Material = new MaterialRepository(_dbContext);
+            About = new AboutRepository(_dbContext);
             AdminUser = new AdminUserRepository(_dbContext);
             AdminRole = new AdminRoleRepository(_dbContext);
             AdminUserRole = new AdminUserRoleRepository(_dbContext);
@@ -56,6 +57,8 @@ namespace Ecommerce_API._Repositories
         public IAdminRoleRepository AdminRole { get; private set; }
         public IAdminUserRoleRepository AdminUserRole { get; private set; }
         public IRefreshTokenRepository RefreshToken { get; private set; }
+
+        public IAboutRepository About { get; private set; }
 
         public async Task<bool> Save()
         {

@@ -12,8 +12,6 @@ export class ShopDetailComponent implements OnInit {
   constructor(private initJsUtility: InitJSUtility) { }
 
   ngOnInit() {
-    this.initJsUtility.productLightBox();
     this.initJsUtility.productZoom();
-    this.initJsUtility.gridImage();
   }
 }

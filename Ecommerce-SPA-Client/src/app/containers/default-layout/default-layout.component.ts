@@ -18,11 +18,12 @@ export class DefaultLayoutComponent implements OnInit {
     this.initJsUtility.notification();
     this.initJsUtility.scrollTop();
     this.initJsUtility.siteAnimation();
+    this.initJsUtility.relatedSlide();
     this.initJsUtility.productLightBox();
     this.initJsUtility.productZoom();
     this.initJsUtility.productDetailSlide2();
     this.initJsUtility.productTab();
-
+    this.initJsUtility.productSlide5();
   }
 
 }

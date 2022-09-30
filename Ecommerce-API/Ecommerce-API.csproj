@@ -19,5 +19,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.1"/>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1"/>
     <PackageReference Include="AgileObjects.AgileMapper" Version="1.8.1"/>
+    <PackageReference Include="CloudinaryDotNet" Version="1.20.0"/>
   </ItemGroup>
 </Project>

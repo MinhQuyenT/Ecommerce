@@ -28,6 +28,7 @@ namespace Ecommerce_API.Data
         public virtual DbSet<WishList> WishList { get; set; }
         public virtual DbSet<Material> Material { get; set; }
         public virtual DbSet<AdminRole> AdminRole { get; set; }
+        public virtual DbSet<About> About { get; set; }
         public virtual DbSet<AdminUser> AdminUser { get; set; }
         public virtual DbSet<AdminUserRole> AdminUserRole { get; set; }
         public virtual DbSet<RefreshToken> RefreshToken { get; set; }

@@ -4,6 +4,7 @@ namespace Ecommerce_API._Repositories
 {
     public interface IRepositoryAccessor
     {
+        IAboutRepository About { get; }
         IBlogRepository Blog { get; }
         IBlogCategoryRepository BlogCategory { get; }
         IBlogTagRepository BlogTag { get; }
