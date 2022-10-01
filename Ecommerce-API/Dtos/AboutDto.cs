@@ -19,5 +19,7 @@ namespace Ecommerce_API.Dtos
         public DateTime CreateTime { get; set; }
         public string UpdateBy { get; set; }
         public DateTime? UpdateTime { get; set; }
+
+        public FormFile file { get; set; }
     }
 }

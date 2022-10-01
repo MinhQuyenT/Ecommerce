@@ -1,12 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 
 namespace Ecommerce_API.Helpers.Utilities
 {
@@ -14,6 +6,7 @@ namespace Ecommerce_API.Helpers.Utilities
     {
         Task<string> UploadAsync(IFormFile file, string subfolder = "upload", string rawFileName = null);
         Task<string> UploadAsync(string file, string subfolder = "upload", string rawFileName = null);
+        Task<string> UploadAsync(IFormFile file, string fileNameWithoutExtension);
         string RemoveUnicode(string str);
     }
 
@@ -147,6 +140,44 @@ namespace Ecommerce_API.Helpers.Utilities
 
             str = Regex.Replace(str, "[^0-9a-zA-Z]+", " ").ToLower();
             return str;
+        }
+
+        public async Task<string> UploadAsync(IFormFile file, string fileNameWithoutExtension)
+        {
+            if (file == null)
+                return null;
+
+            var extension = Path.GetExtension(file.FileName);
+            if (string.IsNullOrEmpty(extension))
+                return null;
+
+            var folderPath = file.ContentType.Contains("image") ?
+                Path.Combine(webRootPath, @"upload\image") :
+                Path.Combine(webRootPath, @"upload\video");
+
+            if (!Directory.Exists(folderPath))
+                Directory.CreateDirectory(folderPath);
+
+            var fileName = $"{fileNameWithoutExtension}{extension.ToLower()}";
+            var filePath = Path.Combine(folderPath, fileName);
+
+            if (System.IO.File.Exists(filePath))
+                System.IO.File.Delete(filePath);
+
+            try
+            {
+                using (FileStream fs = System.IO.File.Create(filePath))
+                {
+                    await file.CopyToAsync(fs);
+                    await fs.FlushAsync();
+                }
+
+                return fileName;
+            }
+            catch (System.Exception)
+            {
+                return null;
+            }
         }
     }
 }
