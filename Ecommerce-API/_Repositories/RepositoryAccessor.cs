@@ -14,6 +14,7 @@ namespace Ecommerce_API._Repositories
             BlogCategory = new BlogCategoryRepository(_dbContext);
             BlogTag = new BlogTagRepository(_dbContext);
             Color = new ColorRepository(_dbContext);
+            Contact = new ContactRepository(_dbContext);
             Faqs = new FaqsRepository(_dbContext);
             Menu = new MenuRepository(_dbContext);
             MenuType = new MenuTypeRepository(_dbContext);
@@ -59,6 +60,7 @@ namespace Ecommerce_API._Repositories
         public IRefreshTokenRepository RefreshToken { get; private set; }
 
         public IAboutRepository About { get; private set; }
+        public IContactRepository Contact { get; private set; }
 
         public async Task<bool> Save()
         {

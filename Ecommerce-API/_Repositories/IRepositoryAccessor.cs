@@ -8,6 +8,7 @@ namespace Ecommerce_API._Repositories
         IBlogRepository Blog { get; }
         IBlogCategoryRepository BlogCategory { get; }
         IBlogTagRepository BlogTag { get; }
+        IContactRepository Contact { get; }
         IColorRepository Color { get; }
         IFaqsRepository Faqs { get; }
         IMenuRepository Menu { get; }
