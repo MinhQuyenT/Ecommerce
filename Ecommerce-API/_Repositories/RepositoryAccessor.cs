@@ -10,6 +10,7 @@ namespace Ecommerce_API._Repositories
         public RepositoryAccessor(DBContext dbContext)
         {
             _dbContext = dbContext;
+            Banner = new BannerRepository(_dbContext);
             Blog = new BlogRepository(_dbContext);
             BlogCategory = new BlogCategoryRepository(_dbContext);
             BlogTag = new BlogTagRepository(_dbContext);
@@ -35,6 +36,7 @@ namespace Ecommerce_API._Repositories
             AdminUserRole = new AdminUserRoleRepository(_dbContext);
             RefreshToken = new RefreshTokenRepository(_dbContext);
         }
+        public IBannerRepository Banner {get; private set;}
         public IBlogRepository Blog { get; private set; }
         public IBlogCategoryRepository BlogCategory { get; private set; }
         public IBlogTagRepository BlogTag { get; private set; }

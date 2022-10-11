@@ -9,6 +9,7 @@ namespace Ecommerce_API.Data
         {
         }
 
+        public virtual DbSet<Banner> Banner {get;set;}
         public virtual DbSet<Blog> Blog { get; set; }
         public virtual DbSet<BlogCategory> BlogCategory { get; set; }
         public virtual DbSet<BlogTag> BlogTag { get; set; }

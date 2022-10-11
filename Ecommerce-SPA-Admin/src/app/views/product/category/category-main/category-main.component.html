@@ -1,68 +1,770 @@
-<div class="container-fluid">
-  <app-page-title title="{{'Manage_Category.TitleMain' | translate}}"></app-page-title>
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="card">
-        <div class="card-body">
-          <div class="row mb-2">
-            <div class="col-sm-4">
-              <div class="search-box me-2 mb-2 d-inline-block">
-                <div class="position-relative">
-                  <input type="text" (keyup.enter)="search()" class="form-control" [(ngModel)]="paramSearch" placeholder="{{'System.Action.Search' | translate}}...">
-                  <i class="bx bx-search-alt search-icon"></i>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-8">
-              <div class="text-sm-end">
-                <button type="button" [routerLink]="['/category/add']"  class="btn btn-success btn-rounded mb-2 me-2"><i class="mdi mdi-plus mr-1"></i>
-                  {{'System.Action.AddNew' | translate}}</button>
-              </div>
-            </div><!-- end col-->
-          </div>
-
-          <div class="table-responsive mt-4">
-            <table class="table mb-0">
-              <thead class="table-light">
-                <tr>
-                  <th>#</th>
-                  <th>Code</th>
-                  <th>{{'Manage_Category.Name' | translate}}</th>
-                  <th>{{'Manage_Category.Title' | translate}}</th>
-                  <th>{{'Manage_Category.Picture' | translate}}</th>
-                  <th>{{'Manage_Category.Description' | translate}}</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let category of categorys; let i = index">
-                  <th scope="row">{{ (pagination.pageNumber - 1) * pagination.pageSize + i + 1}}</th>
-                  <td>{{category.code}}</td>
-                  <td>{{category['name_' + lang]}}</td>
-                  <td>{{category.title}}</td>
-                  <td>
-                    <img height="150" width="100"  [src]="baseUrl + category.avartar" alt=""> 
-                  </td>
-                  <td>{{category.description}}</td>
-                  <td style="width: 1rem;" class="text-nowrap">
-                    <button class="btn btn-sm btn-warning btn-rounded me-1" (click)="editCategory(category)">
-                      <i [class]="iconButton.EDIT"></i>
-                      {{'System.Action.Edit' | translate}}
-                    </button>
-                    <button class="btn btn-sm btn-danger btn-rounded">
-                      <i [class]="iconButton.DELETE"></i>
-                      {{'System.Action.Delete' | translate}}
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <ngb-pagination [(page)]="pagination.pageNumber" [pageSize]="pagination.pageSize"
-          [collectionSize]="pagination.totalCount" (pageChange)="changePaged($event)"
-          class="pagination pagination-rounded mb-2">
-        </ngb-pagination>
-      </div>
+<div id="content">
+  <div class="headingArea">
+    <div class="mTitle">
+      <h1>Danh sách sản phẩm</h1>
     </div>
   </div>
+  <div class="mBox typeAll pannel">
+    <ul class="state">
+      <li>
+        <strong>Tất cả</strong>
+        <a href="#none" class="eCountSearch" sort_type="" status="A">4</a>
+      </li>
+      <li>
+        <strong>Bán</strong>
+        <a href="#none" class="eCountSearch" sort_type="selling" status="T">4</a>
+      </li>
+      <li>
+        <strong>Không bán</strong>
+        <a href="#none" class="eCountSearch" sort_type="selling" status="F">0</a>
+      </li>
+      <li>
+        <strong>Trưng bày</strong>
+        <a href="#none" class="eCountSearch" sort_type="display" status="T">4</a>
+      </li>
+      <li>
+        <strong>Không trưng bày</strong>
+        <a href="#none" class="eCountSearch" sort_type="display" status="F">0</a>
+      </li>
+    </ul>
+    <div class="button">
+      <a class="btn btn-info" href="/disp/admin/shop1/product/productregister"><span>Đăng sản phẩm</span></a>
+    </div>
+  </div>
+
+  <!-- Search Data -->
+  <div class="optionArea" id="QA_list1">
+    <div class="mOption" id="submitSearchBox">
+      <table [border]="1" summary="">
+        <caption>Tìm kiếm sản phẩm</caption>
+        <colgroup>
+          <col style="width:154px;">
+          <col style="width:auto;">
+          <col style="width:154px;">
+          <col style="width:auto;">
+        </colgroup>
+        <tbody>
+          <tr>
+            <th scope="row">Hạng mục tìm kiếm</th>
+            <td colspan="3">
+              <ul class="mForm typeVer" id="eSearchFormGeneral">
+                <li>
+                  <select class="fSelect eSearch">
+                    <option value="product_name" selected="selected">Tên sản phẩm</option>
+                    <option value="eng_product_name">Tên sản phẩm (tiếng Anh)</option>
+                    <option value="item_name">Tên sản phẩm (quản lý)</option>
+                    <option value="purchase_prd_name">Tên sản phẩm (nhà cung cấp)</option>
+                    <option value="">--------------------</option>
+                    <option value="product_no">STT sản phẩm</option>
+                    <option value="product_code">Mã sản phẩm</option>
+                    <option value="ma_product_code">Mã sản phẩm tự tạo</option>
+                    <option value="item_code">Mã phiên bản</option>
+                    <option value="admin_item_code">Mã phiên bản tự tạo</option>
+                    <option value="">--------------------</option>
+                    <option value="Manufacturer">Nhà sản xuất</option>
+                    <option value="Supplier">Nhà cung cấp</option>
+                    <option value="Brand">Thương hiệu</option>
+                    <option value="Trend">Xu hướng</option>
+                    <option value="Classification">Danh mục tự tạo</option>
+                    <option value="">--------------------</option>
+                    <option value="model_name">Tên model</option>
+                    <option value="Globalorigin">Xuất xứ</option>
+                    <option value="Condition">Trạng thái sản phẩm</option>
+                    <option value="product_tag">Tag tìm kiếm sản phẩm</option>
+                    <option value="product_weight">Tổng khối lượng sản phẩm</option>
+                    <option value="">--------------------</option>
+                    <option value="pm_memo">Ghi chú</option>
+                    <option value="ins_user">ID đăng ký</option>
+                  </select>
+                  <input type="text" class="fText eSearchText" style="width:500px;" value="" name="eValue[]">
+                  <select data-placeholder="- Chọn danh mục -" class="chzn-select-deselect eTrend  chzn-done"
+                    style="width:312px; display:none;" name="Trend[]" id="selLPX">
+                    <option value=""></option>
+                  </select>
+                  <div id="selLPX_chzn" class="chzn-container chzn-container-single eSearchSelects"
+                    style="width: 312px; display: none;" title=""><a href="javascript:void(0)"
+                      class="chzn-single chzn-default" tabindex="-1"><span>- Chọn danh mục -</span>
+                      <div><b></b></div>
+                    </a>
+                    <div class="chzn-drop">
+                      <div class="chzn-search"><input type="text" autocomplete="off" style="display: none;"><input
+                          type="text" autocomplete="off"></div>
+                      <ul class="chzn-results"></ul>
+                    </div>
+                  </div>
+                  <select data-placeholder="- Chọn danh mục -" class="chzn-select-deselect eBrand  chzn-done"
+                    style="width:312px; display:none;" name="Brand[]" id="selDSE">
+                    <option value=""></option>
+                  </select>
+                  <div id="selDSE_chzn" class="chzn-container chzn-container-single eSearchSelects"
+                    style="width: 312px; display: none;" title=""><a href="javascript:void(0)"
+                      class="chzn-single chzn-default" tabindex="-1"><span>- Chọn danh mục -</span>
+                      <div><b></b></div>
+                    </a>
+                    <div class="chzn-drop">
+                      <div class="chzn-search"><input type="text" autocomplete="off" style="display: none;"><input
+                          type="text" autocomplete="off"></div>
+                      <ul class="chzn-results"></ul>
+                    </div>
+                  </div>
+                  <select data-placeholder="- Chọn danh mục -" class="chzn-select-deselect eSupplier  chzn-done"
+                    style="width:312px; display:none;" name="Supplier[]" id="selXU2">
+                    <option value=""></option>
+                  </select>
+                  <div id="selXU2_chzn" class="chzn-container chzn-container-single eSearchSelects"
+                    style="width: 312px; display: none;" title=""><a href="javascript:void(0)"
+                      class="chzn-single chzn-default" tabindex="-1"><span>- Chọn danh mục -</span>
+                      <div><b></b></div>
+                    </a>
+                    <div class="chzn-drop">
+                      <div class="chzn-search"><input type="text" autocomplete="off" style="display: none;"><input
+                          type="text" autocomplete="off"></div>
+                      <ul class="chzn-results" style=""></ul>
+                    </div>
+                  </div>
+                  <select data-placeholder="- Chọn danh mục -" class="chzn-select-deselect eManufacturer  chzn-done"
+                    style="width:312px; display:none;" name="Manufacturer[]" id="sel9R6">
+                    <option value=""></option>
+                  </select>
+                  <div id="sel9R6_chzn" class="chzn-container chzn-container-single eSearchSelects"
+                    style="width: 312px; display: none;" title=""><a href="javascript:void(0)"
+                      class="chzn-single chzn-default" tabindex="-1"><span>- Chọn danh mục -</span>
+                      <div><b></b></div>
+                    </a>
+                    <div class="chzn-drop">
+                      <div class="chzn-search"><input type="text" autocomplete="off" style="display: none;"><input
+                          type="text" autocomplete="off"></div>
+                      <ul class="chzn-results" style=""></ul>
+                    </div>
+                  </div>
+                  <select data-placeholder="- Chọn danh mục -" class="chzn-select-deselect eClassification  chzn-done"
+                    style="width:312px; display:none;" name="Classification[]" id="selMBN">
+                    <option value=""></option>
+                  </select>
+                  <div id="selMBN_chzn" class="chzn-container chzn-container-single eSearchSelects"
+                    style="width: 312px; display: none;" title=""><a href="javascript:void(0)"
+                      class="chzn-single chzn-default" tabindex="-1"><span>- Chọn danh mục -</span>
+                      <div><b></b></div>
+                    </a>
+                    <div class="chzn-drop">
+                      <div class="chzn-search"><input type="text" autocomplete="off" style="display: none;"><input
+                          type="text" autocomplete="off"></div>
+                      <ul class="chzn-results" style=""></ul>
+                    </div>
+                  </div>
+                  <select class="fSelect eSearchSelects eCondition" style="width:312px;display:none;"
+                    name="Condition[]">
+                    <option value="N" selected="selected">Sản phẩm mới</option>
+                    <option value="U">Đồ cũ</option>
+                    <option value="R">Sản phẩm trả hàng/tồn kho/trưng bày</option>
+                  </select>
+
+                  <select data-placeholder="- Chọn xuất xứ -" class="chzn-select-deselect eGlobalorigin  chzn-done"
+                    style="width:312px; display:none;" name="Globalorigin[]" id="sel2IT">
+                    <option value="" selected="selected">
+                    </option>
+                  </select>
+                  <div id="sel2IT_chzn" class="chzn-container chzn-container-single eSearchSelects"
+                    style="width: 312px; display: none;" title=""><a href="javascript:void(0)"
+                      class="chzn-single chzn-default" tabindex="-1"><span>- Chọn xuất xứ -</span>
+                      <div><b></b></div>
+                    </a>
+                    <div class="chzn-drop">
+                      <div class="chzn-search"><input type="text" autocomplete="off" style="display: none;"><input
+                          type="text" autocomplete="off"></div>
+                      <ul class="chzn-results" style=""></ul>
+                    </div>
+                  </div>
+
+                  <select class="fSelect eSearchSelects eSearchOrigin" id="origin_level1_0" index="0"
+                    name="origin_level1[]" style="display:none;">
+                    <option value="F">Trong nước</option>
+                    <option value="T">Quốc tế</option>
+                    <option value="E">Khác</option>
+                  </select>
+
+                  <span class="eSearchSelects eSearchOrigin" id="origin_levelF_0" name="origin_levelF[]"
+                    style="display:none;">
+                  </span>
+                  <span class="eSearchSelects eSearchOrigin" id="origin_levelT_0" name="origin_levelT[]"
+                    style="display:none;">
+                    <select class="fSelect eSearchOrigin" id="origin_levelT2_0" name="place_parent_no[T][]"
+                      level_type="T">
+                      <option value="">- Chọn châu lục -</option>
+                      <option value="100">Châu Á</option>
+                      <option value="103">Châu Mỹ</option>
+                      <option value="102">Châu Âu</option>
+                      <option value="104">Oceania</option>
+                      <option value="101">Châu Phi</option>
+
+                    </select>
+                  </span>
+
+                  <span class="eSearchSelects eSearchOrigin" id="origin_level3_0" name="origin_level3[]"
+                    style="display:none;">
+                    <select class="fSelect eSearchOrigin" id="origin_levelT3_0" name="origin_place_no[]">
+                      <option></option>
+                    </select>
+                  </span>
+                  <span class="eSearchSelects eSearchOrigin" id="origin_levelE_0" name="origin_levelE[]"
+                    style="display:none;">
+                    <input type="text" class="fText eSearchOrigin" style="width:200px;" name="made_in[]" value=""
+                      id="eMadeIn_0">
+                  </span>
+
+                  <a href="#none" class="btnIcon icoMinus" search-type="general"><span>Xóa</span></a>
+                  <a href="#none" class="btnIcon icoPlus" search-type="general" style=""><span>Thêm</span></a>
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Phân loại sản phẩm</th>
+            <td colspan="3">
+              <label class="gLabel eSelected"><input type="radio" class="fChk" name="product_type" value="all"
+                  checked="&quot;checked&quot;/"> Tất cả</label>
+              <label class="gLabel"><input type="radio" class="fChk" name="product_type" value="basic"> Sản phẩm cơ
+                bản</label>
+              <label class="gLabel"><input type="radio" class="fChk" name="product_type" value="set_complex"> Bộ sản
+                phẩm</label>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Danh mục sản phẩm</th>
+            <td colspan="3">
+              <div class="gSingle">
+                <select class="fSelect category eCategory" id="eCategory1" depth="1" name="categorys[]">
+                  <option value="">- Danh mục lớn -</option>
+                  <option value="23">(Danh mục lớn) Không trưng bày</option>
+                  <option value="24">(Danh mục lớn) Outerwear</option>
+                  <option value="25">(Danh mục lớn) Tops</option>
+                  <option value="26">(Danh mục lớn) Dresses</option>
+                  <option value="27">(Danh mục lớn) Bottoms</option>
+                  <option value="28">(Danh mục lớn) Accessories</option>
+                </select> <select class="fSelect category eCategory" id="eCategory2" depth="2" name="categorys[]">
+                  <option value="">- Danh mục vừa -</option>
+                </select> <select class="fSelect category eCategory" id="eCategory3" depth="3" name="categorys[]">
+                  <option value="">- Danh mục nhỏ -</option>
+                </select> <select class="fSelect category eCategory" id="eCategory4" depth="4" name="categorys[]">
+                  <option value="">- Danh mục chi tiết -</option>
+                </select> <input type="hidden" name="category" id="eHiddenCategory" value="0"> <span class="gBreak">
+                  <label><input type="checkbox" class="fChk category_sort" name="sub_cate" value="T"> Tìm kiếm bao gồm
+                    danh mục dưới</label>
+                  <label><input type="checkbox" class="fChk category_sort" name="notincategory" value="T"> Tìm kiếm sản
+                    phẩm chưa đăng ký danh mục</label>
+                </span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Ngày đăng sản phẩm</th>
+            <td colspan="3">
+              <select class="fSelect category" name="date">
+                <option value="regist" selected="selected">Ngày đăng sản phẩm</option>
+                <option value="modify">Ngày sửa sản phẩm cuối cùng</option>
+              </select>
+              <a href="#none" class="btnDate" period="0"><span>Hôm nay</span></a>
+              <a href="#none" class="btnDate" period="3"><span>3 ngày</span></a>
+              <a href="#none" class="btnDate" period="7"><span>7 ngày</span></a>
+              <a href="#none" class="btnDate" period="30"><span>1 tháng</span></a>
+              <a href="#none" class="btnDate" period="90"><span>3 tháng</span></a>
+              <a href="#none" class="btnDate" period="365"><span>1 năm</span></a>
+              <a href="#none" class="btnDate selected" period="-1"><span>Tất cả</span></a>
+              <input type="text" id="pr_start_date" name="start_date" class="fText gDate" value="2021-10-11"
+                disabled="disabled">
+              <a href="javascript:;" id="start_date" class="btnIcon icoCal"><span>Xem lịch</span></a>
+              ~
+              <input type="text" id="pr_end_date" name="end_date" class="fText gDate" value="2022-10-11"
+                disabled="disabled">
+              <a href="javascript:;" id="end_date" class="btnIcon icoCal"><span>Xem lịch</span></a>
+              <input type="hidden" name="date_type" value="-1">
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Trạng thái trưng bày</th>
+            <td>
+              <label class="gSingleLabel eSelected"><input type="radio" class="fChk eDisplayStatus" name="display"
+                  value="A" checked="&quot;checked&quot;"> Tất cả</label>
+              <label class="gSingleLabel"><input type="radio" class="fChk eDisplayStatus" name="display" value="T">
+                Trưng bày</label>
+              <label class="gSingleLabel"><input type="radio" class="fChk eDisplayStatus" name="display" value="F">
+                Không trưng bày</label>
+            </td>
+            <th scope="row">Trạng thái bán hàng</th>
+            <td>
+              <label class="gSingleLabel eSelected"><input type="radio" class="fChk eDisplayStatus" name="selling"
+                  value="A" checked="&quot;checked&quot;"> Tất cả</label>
+              <label class="gSingleLabel"><input type="radio" class="fChk eDisplayStatus" name="selling" value="T">
+                Bán</label>
+              <label class="gSingleLabel"><input type="radio" class="fChk eDisplayStatus" name="selling" value="F">
+                Không bán</label>
+            </td>
+          </tr>
+          <tr style="display: none;">
+            <th scope="row">Liên kết sàn TMĐT</th>
+            <td colspan="3">
+              <div class="mForm">
+                <label class="gLabel eSelected"><input type="radio" name="market_selecter" class="fChk _market_selecter"
+                    value="A" checked="checked"> Tất cả</label>
+                <label class="gLabel"><input type="radio" name="market_selecter" class="fChk _market_selecter"
+                    value="T"> Liên kết</label>
+                <label class="gLabel"><input type="radio" name="market_selecter" class="fChk _market_selecter"
+                    value="F"> Không liên kết</label>
+
+                <div class="addForm" id="ec-product-list-market-search" style="display:none;">
+                  <select class="fSelect _market_search_type" name="market_search_type">
+                    <option value="market" selected="selected">Tìm kiếm theo sàn TMĐT</option>
+                    <option value="account">Tìm kiếm theo tài khoản</option>
+                  </select>
+                  <span class="_ma_market_wrap" style="display:none;">
+                    <label class="gLabel gSingleSide eSelected"><input type="checkbox" class="fChk _ma_market_all"
+                        checked="checked"> Tất cả</label>
+                    <p class="gSingle">
+                    </p>
+                  </span>
+                  <span class="_ma_account_wrap" style="display:none;">
+                    <label class="gLabel gSingleSide eSelected"><input type="checkbox" class="fChk _ma_account_all"
+                        checked="checked"> Tất cả</label>
+                    <p class="gSingle">
+                    </p>
+                  </span>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="mOption gDivision" style="">
+      <input type="hidden" name="display_division" class="_display_division" value="">
+      <table [border]="1" summary="">
+        <caption>Danh sách sản phẩm</caption>
+        <colgroup>
+          <col style="width:154px;">
+          <col style="width:auto;">
+          <col style="width:154px;">
+          <col style="width:auto;">
+        </colgroup>
+        <tbody>
+          <tr>
+            <th scope="row">Sử dụng tồn kho</th>
+            <td colspan="3">
+              <label class="gLabel eSelected"><input type="radio" class="fChk" name="UseStock" value="A"
+                  checked="checked"> Tất cả</label>
+              <label class="gLabel"><input type="radio" class="fChk" name="UseStock" value="T"> Sử dụng</label>
+              <label class="gLabel"><input type="radio" class="fChk" name="UseStock" value="F"> Không sử dụng</label>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Số lượng tồn kho</th>
+            <td colspan="3">
+              <ul class="mForm typeVer" id="eSearchFormStock">
+                <li>
+                  <select class="fSelect" name="stockcount[]">
+                    <option value="stock" selected="selected">Số lượng tồn kho</option>
+                    <option value="warn">Định mức tồn kho</option>
+                  </select>
+                  <input type="text" class="fText right eSearchText" style="width:60px;" value="" name="stock_min[]">
+                  <input type="text" class="fText right eSearchText" style="width:60px;" value="" name="stock_max[]">
+                  <a href="#none" class="btnIcon icoMinus" search-type="stock"><span>Xóa</span></a>
+                  <a href="#none" class="btnIcon icoPlus" search-type="stock" style=""><span>Thêm</span></a>
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Cấp bậc quản lý tồn kho</th>
+            <td colspan="3">
+              <label class="gLabel eSelected"><input type="radio" class="fChk" name="stock_importance" value="T"
+                  checked="checked"> Tất cả</label>
+              <label class="gLabel"><input type="radio" class="fChk" name="stock_importance" value="A"> Tồn kho
+                thường</label>
+              <label class="gLabel"><input type="radio" class="fChk" name="stock_importance" value="B"> Tồn kho quan
+                trọng</label>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Sử dụng</th>
+            <td colspan="3">
+              <label class="gLabel eSelected"><input type="radio" class="fChk" name="use_soldout" value="A"
+                  checked="checked"> Tất cả</label>
+              <label class="gLabel"><input type="radio" class="fChk" name="use_soldout" value="T"> Sử dụng</label>
+              <label class="gLabel"><input type="radio" class="fChk" name="use_soldout" value="F"> Không sử dụng</label>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Trạng thái hết hàng</th>
+            <td colspan="3">
+              <label class="gLabel eSelected"><input type="radio" class="fChk" name="soldout_status" value="A"
+                  checked="checked"> Tất cả</label>
+              <label class="gLabel"><input type="radio" class="fChk" name="soldout_status" value="T"> Hết hàng</label>
+              <label class="gLabel"><input type="radio" class="fChk" name="soldout_status" value="F"> Không phải hết
+                hàng</label>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Kho hàng</th>
+            <td colspan="3">
+              <select class="fSelect" name="warehouse">
+                <option value="A">Tất cả</option>
+                <option value="1|W0000000"> Tự quản lý</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Trạng thái trưng bày phiên bản</th>
+            <td>
+              <label class="gLabel eSelected"><input type="radio" class="fChk eItemStatus" name="item_display" value="A"
+                  checked="&quot;checked&quot;"> Tất cả</label>
+              <label class="gLabel"><input type="radio" class="fChk eItemStatus" name="item_display" value="T"> Trưng
+                bày</label>
+              <label class="gLabel"><input type="radio" class="fChk eItemStatus" name="item_display" value="F"> Không
+                trưng bày</label>
+            </td>
+            <th scope="row">Trạng thái bán phiên bản</th>
+            <td>
+              <label class="gLabel eSelected"><input type="radio" class="fChk eItemStatus" name="item_selling" value="A"
+                  checked="&quot;checked&quot;"> Tất cả</label>
+              <label class="gLabel"><input type="radio" class="fChk eItemStatus" name="item_selling" value="T">
+                Bán</label>
+              <label class="gLabel"><input type="radio" class="fChk eItemStatus" name="item_selling" value="F"> Không
+                bán</label>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Giá sản phẩm</th>
+            <td colspan="3">
+              <ul class="mForm typeVer" id="eSearchFormPrice">
+                <li>
+                  <select class="fSelect" name="price[]">
+                    <option value="product" selected="selected">Giá bán</option>
+                    <option value="custom">Giá bán lẻ</option>
+                    <option value="buy">Giá nhập</option>
+                  </select>
+                  <input type="text" class="fText right eSearchText" style="width:60px;" value="" name="price_min[]">
+                  <span class="txtCode">VND</span> ~
+                  <input type="text" class="fText right eSearchText" style="width:60px;" value="" name="price_max[]">
+                  <span class="txtCode">VND</span>
+                  <a href="#none" class="btnIcon icoMinus" search-type="price"><span>Xóa</span></a>
+                  <a href="#none" class="btnIcon icoPlus" search-type="price" style=""><span>Thêm</span></a>
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Phân loại sản phẩm(Thông quan quốc tế)</th>
+            <td colspan="3"><label class="gLabel"><input type="checkbox" name="clearance_category_code" value="T"
+                  class="fChk"> Tìm kiếm sản phẩm chưa đăng ký danh mục</label></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="mButton gCenter">
+      <a href="#none" class="btnSearch" id="eBtnSearch"><span>Tìm kiếm</span></a>
+      <a href="#none" class="btnSearch reset" id="eSearchFormInit"><span>Reset</span></a>
+    </div>
+    <input type="hidden" name="page">
+  </div>
+
+
+
+  <div class="section" id="QA_list2" style="z-index: 0; position: static;">
+    <div class="mState">
+      <div class="gLeft">
+        <p class="total">[Tổng: <strong>4</strong>]</p>
+      </div>
+      <div class="gRight">
+        <select class="fSelect nob-sel" name="orderby">
+          <option value="regist_d" selected="selected">Ngày đăng (mới nhất)</option>
+          <option value="regist_a">Ngày đăng (cũ nhất)</option>
+          <option value="empty1" disabled="disabled">---------------</option>
+          <option value="modify_d">Ngày sửa (mới nhất)</option>
+          <option value="modify_a">Ngày sửa (cũ nhất)</option>
+          <option value="empty2" disabled="disabled">---------------</option>
+          <option value="name_d">Tên sản phẩm (Z-A)</option>
+          <option value="name_a">Tên sản phẩm (A-Z)</option>
+          <option value="empty3" disabled="disabled">---------------</option>
+          <option value="price_d">Giá bán (cao nhất)</option>
+          <option value="price_a">Giá bán (thấp nhất)</option>
+          <option value="empty5" disabled="disabled">---------------</option>
+          <option value="buyprice_d">Giá nhập (cao nhất)</option>
+          <option value="buyprice_a" class="sort">Giá nhập (thấp nhất)</option>
+          <option value="empty6" disabled="disabled" class="sort">---------------</option>
+          <option value="sort_d" disabled="disabled" class="sort">Thứ tự trưng bày (ngược với cài đặt)</option>
+          <option value="sort_a" disabled="disabled" class="sort">Thứ tự trưng bày</option>
+          <option value="empty8" disabled="disabled">---------------</option>
+          <option value="basket_d">Lượt thêm vào giỏ hàng (nhiều nhất)</option>
+          <option value="basket_a">Lượt thêm vào giỏ hàng (ít nhất)</option>
+          <option value="empty9" disabled="disabled">---------------</option>
+          <option value="hitcount_d">Lượt xem (nhiều nhất)</option>
+          <option value="hitcount_a">Lượt xem (ít nhất)</option>
+        </select>
+        <select class="fSelect" name="limit">
+          <option value="10">10 kết quả</option>
+          <option value="20" selected="selected">20 kết quả</option>
+          <option value="30">30 kết quả</option>
+          <option value="50">50 kết quả</option>
+          <option value="100">100 kết quả</option>
+        </select>
+      </div>
+    </div>
+    <div class="mBoard typeList gScroll gCell">
+      <table border="1" summary="" class="eChkColor">
+        <caption>Danh sách sản phẩm</caption>
+        <colgroup>
+          <col class="chk">
+          <!-- 기본 -->
+          <col style="width:50px">
+          <col style="width:70px">
+          <col style="width:140px">
+          <col style="width:250px">
+          <col style="width:100px">
+          <col style="width:100px">
+          <col style="width:100px">
+          <col style="width:100px">
+          <col style="width:100px">
+          <col style="width:110px">
+        </colgroup>
+        <thead id="product-list-header">
+          <tr>
+            <th scope="col"><input type="checkbox" class="allChk"></th>
+            <!-- 기본 -->
+            <th scope="col" column-name="no">
+              STT </th>
+            <th scope="col" column-name="product_type">
+              Phân loại sản phẩm </th>
+            <th scope="col" column-name="product_code">
+              Mã sản phẩm </th>
+            <th scope="col" column-name="product_name">
+              Tên sản phẩm </th>
+            <th scope="col" column-name="product_custom">
+              Giá bán lẻ </th>
+            <th scope="col" column-name="prd_price_org">
+              Giá trước thuế </th>
+            <th scope="col" column-name="product_price">
+              Giá bán </th>
+            <th scope="col" column-name="sale_price">
+              Giá đã giảm </th>
+            <th scope="col" column-name="mobile_sale_price">
+              Giá đã giảm<br>mobile </th>
+            <th scope="col" column-name="order_address">
+              URL mua ngay <div class="cTip" code="PR.SM.PL.100">
+                <div class="mTooltip gLarge">
+                  <button type="button" class="icon eTipScroll"></button>
+                  <div class="tooltip" style="z-index: 1; display: none;">
+                    <div class="content"></div>
+                    <button type="button" class="close eClose">닫기</button>
+                    <span class="edge"></span>
+                  </div>
+                </div>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody class="center" id="product-list">
+          <tr class="ec-product-manage-list" data-product-type="true" data-product-num="12" data-is-set-product="F">
+            <td><input type="checkbox" class="rowChk _product_no" value="12" is_display="T" is_selling="T"
+                is_funding_product="F" is_set_product="F"></td>
+            <td>4</td>
+            <td>Sản phẩm cơ bản</td>
+            <td class="txtCode"><a href="/disp/admin/shop1/product/ProductRegister?product_no=12" title="Mở cửa sổ mới"
+                class="txtLink eProductDetail _product_code" product_no="12">P000000L</a></td>
+            <td>
+              <div class="gGoods gMedium">
+                <div class="mOpen">
+                  <span class="frame eOpenOver" find="gGoods"><img src="" width="44" height="44" alt=""></span>
+                  <div class="open" style="top:20%;left:20%;width:145px;">
+                    <div class="wrap">
+                      <ul class="default">
+                        <li><a href="#none" class="eProductDetail" product_no="12">Xem chi tiết sản phẩm</a></li>
+                        <li><a href="#none" class="eProductDisplayPopup"
+                            url="https://mquyen.cafe24shop.com/product/detail.html?product_no=12"
+                            data-product-no="12">Xem trưng bày trang mua sắm</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <p><a href="/" target="_   " title="Mở cửa sổ mới"
+                    class="txtLink eProductDetail ec-product-list-productname" product_no="12">Product Sample 4</a></p>
+
+              </div>
+            </td>
+            <td class="right">1,000,000</td>
+            <td class="right">909,091</td>
+            <td class="right">1,000,000</td>
+            <td class="right">
+              <a href="" class="eLayerClick txtLink eBenefitLayer" benefit-type="P" product-no="12">1,000,000</a>
+            </td>
+            <td class="right"><a href="" class="eLayerClick  txtLink eBenefitLayer" benefit-type="M"
+                product-no="12">1,000,000</a></td>
+            <td>
+              <input type="text" class="fText ec-product-list-orderaddress " style="width:100%;" data-product-no="12"
+                value="" readonly="">
+
+              <div class="gSingle">
+                <a href="#layerSnsShare" class="btnNormal eLayerClick ec-product-list-sns "
+                  data-product-no="12"><span>Chia sẻ MXH</span></a>
+                <a href="#" class="btnNormal ec-product-list-copy-address " data-product-no="12"><span>Sao chép địa
+                    chỉ</span></a>
+              </div>
+            </td>
+
+          </tr>
+          <tr class="ec-product-manage-list" data-product-type="true" data-product-num="11" data-is-set-product="F">
+            <td><input type="checkbox" class="rowChk _product_no" value="11" is_display="T" is_selling="T"
+                is_funding_product="F" is_set_product="F"></td>
+            <td>3</td>
+            <td>Sản phẩm cơ bản</td>
+            <td class="txtCode"><a href="/disp/admin/shop1/product/ProductRegister?product_no=11" title="Mở cửa sổ mới"
+                class="txtLink eProductDetail _product_code" product_no="11">P000000K</a></td>
+            <td>
+              <div class="gGoods gMedium">
+                <div class="mOpen">
+                  <span class="frame eOpenOver" find="gGoods"><img
+                      src="//cdn-3464.cafe24img.com/mquyen/web/product/tiny/sample_3.png" width="44" height="44"
+                      alt=""></span>
+                  <div class="open" style="top:20%;left:20%;width:145px;">
+                    <div class="wrap">
+                      <ul class="default">
+                        <li><a href="#none" class="eProductDetail" product_no="11">Xem chi tiết sản phẩm</a></li>
+                        <li><a href="#none" class="eProductDisplayPopup" url="" data-product-no="11">Xem trưng bày trang
+                            mua sắm</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <p><a href="/disp/admin/shop1/product/ProductRegister?product_no=11" target="_   " title="Mở cửa sổ mới"
+                    class="txtLink eProductDetail ec-product-list-productname" product_no="11">Product Sample 3</a></p>
+              </div>
+            </td>
+            <td class="right">500,000</td>
+            <td class="right">454,545</td>
+            <td class="right">500,000</td>
+            <td class="right">
+              <a href="#layerDcBenefit" class="eLayerClick txtLink eBenefitLayer" benefit-type="P"
+                product-no="11">500,000</a>
+            </td>
+            <td class="right"><a href="#layerDcBenefit" class="eLayerClick  txtLink eBenefitLayer" benefit-type="M"
+                product-no="11">500,000</a></td>
+            <td>
+              <input type="text" class="fText ec-product-list-orderaddress " style="width:100%;" data-product-no="11"
+                value="https://mquyen.cafe24shop.com/surl/O/11" readonly="">
+
+              <div class="gSingle">
+                <a href="#layerSnsShare" class="btnNormal eLayerClick ec-product-list-sns "
+                  data-product-no="11"><span>Chia sẻ MXH</span></a>
+                <a href="#" class="btnNormal ec-product-list-copy-address " data-product-no="11"
+                  data-clipboard-text="https://mquyen.cafe24shop.com/surl/O/11"><span>Sao chép địa chỉ</span></a>
+              </div>
+            </td>
+
+          </tr>
+          <tr class="ec-product-manage-list" data-product-type="true" data-product-num="10" data-is-set-product="F">
+            <td><input type="checkbox" class="rowChk _product_no" value="10" is_display="T" is_selling="T"
+                is_funding_product="F" is_set_product="F"></td>
+            <td>2</td>
+            <td>Sản phẩm cơ bản</td>
+            <td class="txtCode"><a href="/disp/admin/shop1/product/ProductRegister?product_no=10" title="Mở cửa sổ mới"
+                class="txtLink eProductDetail _product_code" product_no="10">P000000J</a></td>
+            <td>
+              <div class="gGoods gMedium">
+                <div class="mOpen">
+                  <span class="frame eOpenOver" find="gGoods"><img
+                      src="//cdn-3464.cafe24img.com/mquyen/web/product/tiny/sample_2.png" width="44" height="44"
+                      alt=""></span>
+                  <div class="open" style="top:20%;left:20%;width:145px;">
+                    <div class="wrap">
+                      <ul class="default">
+                        <li><a href="#none" class="eProductDetail" product_no="10">Xem chi tiết sản phẩm</a></li>
+                        <li><a href="#none" class="eProductDisplayPopup"
+                            url="https://mquyen.cafe24shop.com/product/detail.html?product_no=10"
+                            data-product-no="10">Xem trưng bày trang mua sắm</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <p><a href="/disp/admin/shop1/product/ProductRegister?product_no=10" title="Mở cửa sổ mới"
+                    class="txtLink eProductDetail ec-product-list-productname" product_no="10">Product Sample 2</a></p>
+              </div>
+            </td>
+            <td class="right">300,000</td>
+            <td class="right">272,727</td>
+            <td class="right">300,000</td>
+            <td class="right">
+              <a href="#layerDcBenefit" class="eLayerClick txtLink eBenefitLayer" benefit-type="P"
+                product-no="10">300,000</a>
+            </td>
+            <td class="right"><a href="#layerDcBenefit" class="eLayerClick  txtLink eBenefitLayer" benefit-type="M"
+                product-no="10">300,000</a></td>
+            <td>
+              <input type="text" class="fText ec-product-list-orderaddress " style="width:100%;" data-product-no="10"
+                value="https://mquyen.cafe24shop.com/surl/O/10" readonly="">
+
+              <div class="gSingle">
+                <a href="#layerSnsShare" class="btnNormal eLayerClick ec-product-list-sns "
+                  data-product-no="10"><span>Chia sẻ MXH</span></a>
+                <a href="#" class="btnNormal ec-product-list-copy-address " data-product-no="10"
+                  data-clipboard-text="https://mquyen.cafe24shop.com/surl/O/10"><span>Sao chép địa chỉ</span></a>
+              </div>
+            </td>
+
+          </tr>
+          <tr class="ec-product-manage-list" data-product-type="true" data-product-num="9" data-is-set-product="F">
+            <td><input type="checkbox" class="rowChk _product_no" value="9" is_display="T" is_selling="T"
+                is_funding_product="F" is_set_product="F"></td>
+            <td>1</td>
+            <td>Sản phẩm cơ bản</td>
+            <td class="txtCode"><a href="/disp/admin/shop1/product/ProductRegister?product_no=9" title="Mở cửa sổ mới"
+                class="txtLink eProductDetail _product_code" product_no="9">P000000I</a></td>
+            <td>
+              <div class="gGoods gMedium">
+                <div class="mOpen">
+                  <span class="frame eOpenOver" find="gGoods"><img
+                      src="//cdn-3464.cafe24img.com/mquyen/web/product/tiny/sample_1.png" width="44" height="44"
+                      alt=""></span>
+                  <div class="open" style="top:20%;left:20%;width:145px;">
+                    <div class="wrap">
+                      <ul class="default">
+                        <li><a href="#none" class="eProductDetail" product_no="9">Xem chi tiết sản phẩm</a></li>
+                        <li><a href="#none" class="eProductDisplayPopup"
+                            url="https://mquyen.cafe24shop.com/product/detail.html?product_no=9" data-product-no="9">Xem
+                            trưng bày trang mua sắm</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <p><a href="/disp/admin/shop1/product/ProductRegister?product_no=9" title="Mở cửa sổ mới"
+                    class="txtLink eProductDetail ec-product-list-productname" product_no="9">Product Sample 1</a></p>
+              </div>
+            </td>
+            <td class="right">200,000</td>
+            <td class="right">181,818</td>
+            <td class="right">200,000</td>
+            <td class="right">
+              <a href="#layerDcBenefit" class="eLayerClick txtLink eBenefitLayer" benefit-type="P"
+                product-no="9">200,000</a>
+            </td>
+            <td class="right"><a href="#layerDcBenefit" class="eLayerClick  txtLink eBenefitLayer" benefit-type="M"
+                product-no="9">200,000</a></td>
+            <td>
+              <input type="text" class="fText ec-product-list-orderaddress " style="width:100%;" data-product-no="9"
+                value="https://mquyen.cafe24shop.com/surl/O/9" readonly="">
+
+              <div class="gSingle">
+                <a href="#layerSnsShare" class="btnNormal eLayerClick ec-product-list-sns "
+                  data-product-no="9"><span>Chia sẻ MXH</span></a>
+                <a href="#" class="btnNormal ec-product-list-copy-address " data-product-no="9"
+                  data-clipboard-text="https://mquyen.cafe24shop.com/surl/O/9"><span>Sao chép địa chỉ</span></a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="mPaginate">
+      <ol>
+        <li><strong title="Trang hiện tại">Pagination</strong></li>
+      </ol>
+    </div>
+  </div>
+</div>
