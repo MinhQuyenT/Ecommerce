@@ -39,6 +39,10 @@ const routes: Routes = [
       {
         path:'banner',
         loadChildren:()=>import('./views/banner/banner.module').then(m=>m.BannerModule)
+      },
+      {
+        path:'contact',
+        loadChildren:()=>import('./views/contact/contact.module').then(m=>m.ContactModule)
       }
     ]
   },
