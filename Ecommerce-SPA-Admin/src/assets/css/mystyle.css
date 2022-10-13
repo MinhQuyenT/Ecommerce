@@ -288,20 +288,20 @@ td.avatar {
 /*UserEdit tab accordion*/
 
 .account-category-post {
-    height: 260px !important;
+    /* height: 260px !important; */
     overflow-x: hidden;
     overflow-y: auto;
 }
 
 .account-basic-info {
-    height: 330px !important;
+    /* height: 330px !important; */
     overflow-x: hidden;
     overflow-y: auto;
 }
 
 .account-other-info {
-    height: 40px !important;
-    overflow-x: hidden;
+    /* height: 40px !important; */
+    /* overflow-x: hidden; */
     overflow-y: auto;
 }
 
@@ -313,7 +313,7 @@ td.avatar {
 }
 
 .account-basic-info img.avatar-preview {
-    height: 100px !important;
+    /* height: 100px !important; */
 }
 
 /*End UserEdit tab accordion*/

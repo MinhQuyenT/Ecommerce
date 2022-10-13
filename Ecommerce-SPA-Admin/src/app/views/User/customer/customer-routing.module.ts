@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CustomerComponent } from './main/customer.component';
+import { UpdateComponent } from './update/update.component';
 
 const routes: Routes = [
   {
@@ -8,6 +9,13 @@ const routes: Routes = [
     component:CustomerComponent,
     data:{
       title: 'Customer List'
+    }
+  },
+  {
+    path:'update',
+    component:UpdateComponent,
+    data:{
+      title: 'Update Customer'
     }
   }
 ];
