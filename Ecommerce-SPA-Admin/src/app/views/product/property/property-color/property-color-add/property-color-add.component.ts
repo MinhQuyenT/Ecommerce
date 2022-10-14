@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { IconButton } from '@constants/common.constant';
 import { Color } from '@models/color';
 import { TranslateService } from '@ngx-translate/core';
@@ -16,10 +16,10 @@ export class PropertyColorAddComponent implements OnInit {
   @Output() newItemEvent = new EventEmitter<Color>();
   @Output() close: EventEmitter<void> = new EventEmitter<void>();
   iconButton = IconButton;
-  formData: FormGroup;
+  formData: UntypedFormGroup;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private service: PropertyColorService,
     private spinner: NgxSpinnerService,
     private snotifyService: NgSnotifyService,

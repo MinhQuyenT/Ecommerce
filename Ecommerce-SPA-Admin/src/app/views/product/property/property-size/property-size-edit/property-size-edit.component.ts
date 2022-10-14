@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IconButton } from '@constants/common.constant';
 import { LangConstant } from '@constants/lang.constant';
@@ -17,7 +17,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class PropertySizeEditComponent implements OnInit {
   lang: string = LangConstant.VN;
   iconButton = IconButton;
-  formData: FormGroup;
+  formData: UntypedFormGroup;
   dataSize: Size;
 
   constructor(private spinner: NgxSpinnerService,
@@ -26,7 +26,7 @@ export class PropertySizeEditComponent implements OnInit {
     private service: PropertySizeService,
     private route: ActivatedRoute,
     private router: Router,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: UntypedFormBuilder) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {

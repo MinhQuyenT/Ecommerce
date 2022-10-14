@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IconButton } from '@constants/common.constant';
 import { LangConstant } from '@constants/lang.constant';
@@ -16,14 +16,14 @@ import { NgxSpinnerService, Size } from 'ngx-spinner';
 export class PropertySizeAddComponent implements OnInit {
   lang: string = LangConstant.VN;
   iconButton = IconButton;
-  formData: FormGroup;
+  formData: UntypedFormGroup;
   dataSize: Size;
 
   constructor(private spinner: NgxSpinnerService,
     private snotifyService: NgSnotifyService,
     private translate: TranslateService,
     private service: PropertySizeService,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: UntypedFormBuilder) { }
 
   ngOnInit() {
     this.initForm();

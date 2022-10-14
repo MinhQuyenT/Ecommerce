@@ -150,9 +150,10 @@
       }
     }
   },
-  "defaultProject": "skote",
   "cli": {
     "analytics": false,
-    "defaultCollection": "@datorama/akita"
+    "schematicCollections": [
+      "@datorama/akita"
+    ]
   }
 }

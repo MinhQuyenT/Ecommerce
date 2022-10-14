@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { IconButton } from '@constants/common.constant';
 import { Material } from '@models/material';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -17,10 +17,10 @@ export class PropertyMaterialEditComponent implements OnInit {
   @Input() material: Material;
   @Output() close: EventEmitter<void> = new EventEmitter<void>()
   iconButton = IconButton;
-  formData: FormGroup;
+  formData: UntypedFormGroup;
 
   constructor(private modalService: NgbModal,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private service: PropertyMaterialService,
     private spinner: NgxSpinnerService,
     private snotifyService: NgSnotifyService,
