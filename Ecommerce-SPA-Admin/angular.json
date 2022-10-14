@@ -31,7 +31,11 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              { "glob": "**/*", "input": "node_modules/tinymce", "output": "/tinymce/" }
+              {
+                "glob": "**/*",
+                "input": "node_modules/tinymce",
+                "output": "/tinymce/"
+              }
             ],
             "styles": [
               "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
@@ -110,9 +114,12 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/notiflix/dist/notiflix-3.2.5.min.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/notiflix/dist/notiflix-3.2.5.min.js"
+            ]
           }
         },
         "lint": {

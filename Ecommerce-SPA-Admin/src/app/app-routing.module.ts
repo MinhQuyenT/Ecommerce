@@ -43,6 +43,10 @@ const routes: Routes = [
       {
         path:'contact',
         loadChildren:()=>import('./views/contact/contact.module').then(m=>m.ContactModule)
+      },
+      {
+        path:'address',
+        loadChildren:()=>import('./views/address/address.module').then(m=>m.AddressModule)
       }
     ]
   },

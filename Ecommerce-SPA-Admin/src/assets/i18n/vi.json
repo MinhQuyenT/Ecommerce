@@ -108,7 +108,8 @@
         "Banner": "Banner",
         "Company": "Thông Tin Doanh Nghiệp",
         "About": "Giới Thiệu",
-        "Contact": "Liên Hệ"
+        "Contact": "Liên Hệ",
+        "Address":"Địa chỉ"
       }
     }
   },

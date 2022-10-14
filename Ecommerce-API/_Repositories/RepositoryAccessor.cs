@@ -35,6 +35,9 @@ namespace Ecommerce_API._Repositories
             AdminRole = new AdminRoleRepository(_dbContext);
             AdminUserRole = new AdminUserRoleRepository(_dbContext);
             RefreshToken = new RefreshTokenRepository(_dbContext);
+            District = new DistrictRepository(_dbContext);
+            Province = new ProvinceRepository(_dbContext);
+            Ward = new WardRepository(_dbContext);
         }
         public IBannerRepository Banner {get; private set;}
         public IBlogRepository Blog { get; private set; }
@@ -63,6 +66,9 @@ namespace Ecommerce_API._Repositories
 
         public IAboutRepository About { get; private set; }
         public IContactRepository Contact { get; private set; }
+        public IDistrictRepository District { get; private set; }
+        public IProvinceRepository Province { get; private set; }
+        public IWardRepository Ward { get; private set; }
 
         public async Task<bool> Save()
         {

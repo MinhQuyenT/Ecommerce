@@ -108,7 +108,8 @@
         "Banner": "Banner",
         "Company": "Company",
         "About": "About",
-        "Contact": "Contact"
+        "Contact": "Contact",
+        "Address":"Address"
       }
     }
   },

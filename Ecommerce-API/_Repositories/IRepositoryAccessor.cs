@@ -29,6 +29,9 @@ namespace Ecommerce_API._Repositories
         IAdminRoleRepository AdminRole { get; }
         IAdminUserRoleRepository AdminUserRole { get; }
         IRefreshTokenRepository RefreshToken { get; }
+        IWardRepository Ward {get;}
+        IProvinceRepository Province {get;}
+        IDistrictRepository District{get;}
         Task<bool> Save();
     }
 }
