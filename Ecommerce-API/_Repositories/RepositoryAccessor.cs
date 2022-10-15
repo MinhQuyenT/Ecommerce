@@ -38,6 +38,7 @@ namespace Ecommerce_API._Repositories
             District = new DistrictRepository(_dbContext);
             Province = new ProvinceRepository(_dbContext);
             Ward = new WardRepository(_dbContext);
+            Customer = new CustomerRepository(_dbContext);
         }
         public IBannerRepository Banner {get; private set;}
         public IBlogRepository Blog { get; private set; }
@@ -69,6 +70,7 @@ namespace Ecommerce_API._Repositories
         public IDistrictRepository District { get; private set; }
         public IProvinceRepository Province { get; private set; }
         public IWardRepository Ward { get; private set; }
+        public ICustomerRepository Customer { get; private set; }
 
         public async Task<bool> Save()
         {

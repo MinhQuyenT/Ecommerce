@@ -1,5 +1,4 @@
 using Aspose.Cells;
-using DEcommerce_API.Models;
 using Ecommerce_API._Repositories;
 using Ecommerce_API._Services.Interfaces.Admin;
 using Ecommerce_API.Dtos;
@@ -124,7 +123,7 @@ namespace Ecommerce_API._Services.Services.Admin
             _repositoryAccessor.Province.RemoveMultiple(provinceList);
 
             _repositoryAccessor.Ward.AddMultiple(wards);
-            _repositoryAccessor.District.AddMultiple(districtList);
+            _repositoryAccessor.District.AddMultiple(districts);
             _repositoryAccessor.Province.AddMultiple(provinces);
             
             try

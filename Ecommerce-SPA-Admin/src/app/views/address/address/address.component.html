@@ -23,11 +23,16 @@
             <div class="span2">
               Vui lòng chọn file để update:
             </div>
-            <div class="span10">
-              <form  class="input-group mb-3" style="width: 40%;">
-                <input type="file" class="form-control" name="inputFile" width="50%" >
-                <button class="btn btn-success input-group-text" style="margin-left: 16px!important;" type="submit" [disabled]="true">Upload</button>
+            <div class="span8">
+              <form #form="ngForm" (submit)="uploadExcel()"  class="input-group mb-3" style="width: 40%;">
+                <input type="file" class="form-control" name="inputFile" width="50%" (change)="onFileChanged($event)" >
+                <button class="btn btn-success input-group-text" style="margin-left: 16px!important;" type="submit" [disabled]="!file">Upload</button>
               </form>
+            </div>
+            <div class="span2">
+              <a target="_blank" href="https://danhmuchanhchinh.gso.gov.vn/" class="btn btn-info btn-link">
+                Download Excel File
+              </a>
             </div>
           </div>
         </div>
@@ -48,7 +53,10 @@
         <div class="block-fluid">
           <!--Loại Cấp Cha-->
           <div class="row-form clearfix" style="padding: 7px 16px;">
-            <select></select>
+            <select class="form-select" [(ngModel)]="provinceID" name="provinceID" (ngModelChange)="provinceChanged()">
+              <option value="" hidden>Select Province</option>
+              <option *ngFor="let item of provinces" [value]="item.key">{{item.value}}</option>
+            </select>
             <span style="text-align: center; display: block;">Chọn Loại Cấp Cha.</span>
           </div>
           <!--Loại Cấp Con-->
@@ -70,12 +78,15 @@
         <div class="block-fluid">
           <!--Loại Cấp Cha-->
           <div class="row-form clearfix" style="padding: 7px 16px;">
-            <select></select>
+            <select class="form-select" [(ngModel)]="districtID" name="districtID" (ngModelChange)="districtChanged()">
+              <option value="" hidden>Select District</option>
+              <option *ngFor="let item of districts" [value]="item.key" >{{item.value}}</option>
+            </select>
             <span style="text-align: center; display: block;">Chọn Loại Cấp Cha.</span>
           </div>
           <!--Loại Cấp Con-->
           <div class="row-form clearfix" style="padding: 8px 16px;">
-            <span size="4" class="category" style="height:100px; display: block; text-align: center;">Huyện....</span>
+            <span size="4" class="category" style="height:100px; display: block; text-align: center;">{{districtID}}</span>
           </div>
         </div>
       </div>
@@ -92,12 +103,15 @@
         <div class="block-fluid">
           <!--Loại Cấp Cha-->
           <div class="row-form clearfix" style="padding: 7px 16px;">
-            <select></select>
+            <select class="form-select" [(ngModel)]="wardID" name="wardID">
+              <option value="" hidden>Select Ward</option>
+              <option *ngFor="let item of wards" [value]="item.key">{{item.value}}</option>
+            </select>
             <span style="text-align: center; display: block;">Chọn Loại Cấp Cha.</span>
           </div>
           <!--Loại Cấp Con-->
           <div class="row-form clearfix" style="padding: 8px 16px;">
-            <span size="4" class="category" style="height:100px; display: block; text-align: center;">Xã....</span>
+            <span size="4" class="category" style="height:100px; display: block; text-align: center;">{{wardID}}</span>
           </div>
         </div>
       </div>
@@ -107,7 +121,7 @@
           <!--Tiêu đề-->
           <div class=" clearfix">
             <div class="isw-list text-center">
-              <h1 class="text-center">
+              <h1 class="text-center" *ngIf="">
                Tỉnh - Huyen - Xã
               </h1>
             </div>

@@ -15,11 +15,13 @@ namespace Ecommerce_API.Data
         public virtual DbSet<BlogTag> BlogTag { get; set; }
         public virtual DbSet<Color> Color { get; set; }
         public virtual DbSet<Contact> Contact { get; set; }
+        public virtual DbSet<District> District { get; set; }
         public virtual DbSet<Faqs> Faqs { get; set; }
         public virtual DbSet<Menu> Menu { get; set; }
         public virtual DbSet<MenuType> MenuType { get; set; }
         public virtual DbSet<Policy> Policy { get; set; }
         public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<Province> Province { get; set; }
         public virtual DbSet<ProductCategory> ProductCategory { get; set; }
         public virtual DbSet<ProductRecently> ProductRecently { get; set; }
         public virtual DbSet<ProductReview> ProductReview { get; set; }

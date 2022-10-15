@@ -23,15 +23,16 @@ export class AddressService {
   }
 
   getDistricts(provinceID: string):Observable<KeyValue<string,string>[]>{
-    return this.http.get<KeyValue<string,string>[]>(this.apiUrl + "Address/District",{ params: { provinceID } })
+    return this.http.get<KeyValue<string,string>[]>(this.apiUrl + "Address/Districts",{ params: { provinceID } })
   }
 
   getWards(districtID: string):Observable<KeyValue<string,string>[]>{
-    return this.http.get<KeyValue<string,string>[]>(this.apiUrl + "Address/Ward",{ params: { districtID } })
+    return this.http.get<KeyValue<string,string>[]>(this.apiUrl + "Address/Wards",{ params: { districtID } })
   }
 
   uploadExcel(file:File):Observable<OperationResult>{
-    var formData:FormData = this.functionUtility.toFormData(file);
-    return this.http.post<OperationResult>(this.apiUrl,formData)
+    debugger
+    var formData:FormData = this.functionUtility.toFormData({ file });
+    return this.http.post<OperationResult>(this.apiUrl + "Address",formData);
   }
 }

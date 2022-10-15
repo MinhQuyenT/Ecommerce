@@ -32,9 +32,9 @@ namespace Ecommerce_API.Controllers.Admin
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadExcel([FromForm] IFormFile excelFile)
+        public async Task<IActionResult> UploadExcel([FromForm] IFormFile file)
         {
-            var result = await _addressService.UploadExcel(excelFile);
+            var result = await _addressService.UploadExcel(file);
             return Ok(result);
         }
     }
