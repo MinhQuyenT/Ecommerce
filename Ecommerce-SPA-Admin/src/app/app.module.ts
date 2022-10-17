@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { APP_INITIALIZER, Injector, NgModule } from '@angular/core';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgbNavModule, NgbAccordionModule, NgbTooltipModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbNavModule, NgbAccordionModule, NgbTooltipModule, NgbModule, NgbModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { LayoutsModule } from './layouts/layouts.module';
@@ -71,6 +71,7 @@ export function createTranslateLoader(http: HttpClient): any {
         disallowedRoutes: environment.disallowedRoutes,
       },
     }),
+    NgbModalModule,
   ],
   bootstrap: [AppComponent],
   providers: [
