@@ -25,6 +25,7 @@ namespace Ecommerce_API.Configurations
             services.AddScoped<IAdminUserService, AdminService>();
             services.AddScoped<IAdminAuthService, AdminAuthService>();
             services.AddScoped<IAddressService, AddressService>();
+            services.AddScoped<IContactService, ContactService>();
             services.AddScoped<IJwtUtility, JwtUtility>();
         }
     }
