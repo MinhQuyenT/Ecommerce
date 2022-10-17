@@ -32,7 +32,7 @@ namespace Ecommerce_API._Repositories
         IRefreshTokenRepository RefreshToken { get; }
         IWardRepository Ward {get;}
         IProvinceRepository Province {get;}
-        IDistrictRepository District{get;}
+        IDistrictRepository District{get;}   
         Task<bool> Save();
     }
 }
