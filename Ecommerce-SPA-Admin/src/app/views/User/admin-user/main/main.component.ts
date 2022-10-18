@@ -13,6 +13,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { UserForLogged } from '@models/auth/userForLogged';
 import { LocalStorageConstant } from '@constants/local-storage.constant';
 import { FunctionUtility } from '@utilities/fucntion-utility';
+import { createMap } from '@automapper/core';
 
 @Component({
   selector: 'app-main',
@@ -32,7 +33,9 @@ export class MainComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private spinnerService: NgxSpinnerService,
-    private functionUtility: FunctionUtility) { }
+    private functionUtility: FunctionUtility) { 
+      // createMap(mapper,AdminUser,AdminUserDto)
+    }
 
   ngOnInit(): void {
     const res: PaginationResult<AdminUser> = this.route.snapshot.data.res;
