@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { BannerRoutingModule } from './banner-routing.module';
 import { BannerComponent } from './banner/banner.component';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -11,6 +12,7 @@ import { BannerComponent } from './banner/banner.component';
   ],
   imports: [
     CommonModule,
+    NgbModalModule,
     BannerRoutingModule
   ]
 })
