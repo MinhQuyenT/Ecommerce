@@ -26,6 +26,8 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { LocalStorageConstant } from '@constants/local-storage.constant';
 import { refreshTokenInitializer } from '@helpers/refresh-token.initializer';
 import { AdminAuthService } from '@services/admin-auth.service';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { CommonModule } from '@angular/common';
 
 export function createTranslateLoader(http: HttpClient): any {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -39,6 +41,7 @@ export function createTranslateLoader(http: HttpClient): any {
     LoginComponent
   ],
   imports: [
+    // CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -71,7 +74,6 @@ export function createTranslateLoader(http: HttpClient): any {
         disallowedRoutes: environment.disallowedRoutes,
       },
     }),
-    NgbModalModule,
   ],
   bootstrap: [AppComponent],
   providers: [

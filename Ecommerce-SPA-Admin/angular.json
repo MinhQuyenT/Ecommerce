@@ -35,6 +35,11 @@
                 "glob": "**/*",
                 "input": "node_modules/tinymce",
                 "output": "/tinymce/"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/ngx-spa-utilities/assets",
+                "output": "assets"
               }
             ],
             "styles": [
@@ -114,10 +119,12 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/scss/bootstrap.scss",
               "node_modules/notiflix/dist/notiflix-3.2.5.min.css",
               "src/styles.scss"
             ],
             "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
               "node_modules/notiflix/dist/notiflix-3.2.5.min.js"
             ]
           }
